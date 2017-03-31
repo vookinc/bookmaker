@@ -228,7 +228,7 @@ elsif File.file?(find_pdf_css_file)
 	copyCSS(find_pdf_css_file, tmp_pdf_css, 'copy_pdf_css-submitted')
 	deleteSubmittedCss(find_pdf_css_file, 'rm_pdf_css-submitted')
 else
-	makeNoPdfCssNotice('no_pdfcss-notice')
+	makeNoPdfNotice('no_pdf-notice')
 end
 
 # append one-off css (from submitted_images or archival dirs) to tmp css
