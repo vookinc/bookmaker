@@ -20,26 +20,26 @@ logsubdir = input_file.split(Regexp.union(*[File::SEPARATOR, File::ALT_SEPARATOR
 # reflect your current system setup.
 
 # Are you on a windows, mac, or unix system?
-$op_system = "windows"
+#$op_system = "windows"
 #$op_system = "mac"
-#$op_system = "unix"
+$op_system = "unix"
 
 # The location of the temporary working folder.
 # This is where bookmaker will perform most actions
 # before moving the finalized files to the "done" directory.
-$tmp_dir = File.join($currvol, "bookmaker_tmp", project)
+$tmp_dir = File.join("/", "docker", "tmp", "bookmaker_tmp")
 
 # The location to store the log file that gets created
 # for each conversion.
-$log_dir = File.join(logdir, "bookmaker_logs", logsubdir, project)
+$log_dir = File.join("/", "docker", "tmp", "bookmaker_logs")
 
 # The location where your bookmaker scripts live.
-$scripts_dir = File.join("S:", "resources", "bookmaker_scripts")
+$scripts_dir = File.join("/", "docker")
 
 # The location that any other resources are installed,
 # for example your pdf processor, zip utility, etc.
 # (on Windows zip is expected at path: $resource_dir\zip\zip.exe)
-$resource_dir = "C:"
+$resource_dir = File.join("/", "docker", "tmp")
 
 # Which version of saxon are you using?
 # Uncomment the correct version and update the version number if needed.
@@ -64,12 +64,12 @@ $processimages = "true"
 # For example, the config.json, images, cover, etc.
 # If not specified, bookmaker will look in the same folder
 # as the input file.
-$assets_dir = File.join(working_dir, "submitted_images")
+$assets_dir = File.join("/", "docker", "tmp", "bookmaker_input")
 
 # Where should the output files be stored?
 # If not specified, bookmaker will make a new subfolder
 # within the input foler, named by project isbn or filename,
-$done_dir = File.join(working_dir, "done")
+$done_dir = File.join("/", "docker", "tmp", "bookmaker_output")
 
 # If the standard windows and mac/unix python commands don't work for you,
 # or you want to install python in a location other than $resource_dir,
@@ -83,9 +83,9 @@ $done_dir = File.join(working_dir, "done")
 
 if File.directory?($scripts_dir)	#adding this check for travis ci tests
   # Your API key to create PDFs via DocRaptor
-  $docraptor_key = File.read("#{$scripts_dir}/bookmaker_authkeys/api_key.txt")
+  $docraptor_key = File.read("#{$scripts_dir}/tmp/bookmaker_authkeys/api_key.txt")
 
   # username and password for online resources
-  $http_username = File.read("#{$scripts_dir}/bookmaker_authkeys/http_username.txt")
-  $http_password = File.read("#{$scripts_dir}/bookmaker_authkeys/http_pass.txt")
+  $http_username = File.read("#{$scripts_dir}/tmp/bookmaker_authkeys/http_username.txt")
+  $http_password = File.read("#{$scripts_dir}/tmp/bookmaker_authkeys/http_pass.txt")
 end
